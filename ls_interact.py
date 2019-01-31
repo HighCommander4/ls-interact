@@ -2,6 +2,13 @@ import argparse
 import common
 import re
 from common import Base
+from enum import Enum
+
+
+class TypeHierarchyDirection(Enum):
+    Children = 0
+    Parents = 1
+    Both = 2
 
 
 class Range:
@@ -236,6 +243,30 @@ class Hover(Base):
         obj['position'] = {}
         obj['position']['line'] = self._line - 1
         obj['position']['character'] = self._col - 1
+
+        return obj
+
+
+class TypeHierarchy(Base):
+
+    def __init__(self, path, line, col, resolve, direction):
+        super().__init__('textDocument/typeHierarchy')
+        self._path = path
+        self._line = line
+        self._col = col
+        self._resolve = resolve
+        self._direction = direction
+
+    def get_params(self):
+        obj = {}
+
+        obj['textDocument'] = {}
+        obj['textDocument']['uri'] = 'file://' + self._path
+        obj['position'] = {}
+        obj['position']['line'] = self._line - 1
+        obj['position']['character'] = self._col - 1
+        obj['resolve'] = self._resolve
+        obj['direction'] = self._direction.value
 
         return obj
 

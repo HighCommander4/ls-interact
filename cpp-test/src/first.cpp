@@ -18,3 +18,6 @@ int main()
   bar();
   foo();
 }
+
+struct Base {};
+struct Derived : Base {};

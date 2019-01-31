@@ -39,6 +39,20 @@ def interact(json_rpc):
     assert len(r) == 1
     assert r[0]['uri'].endswith('/first.cpp')
 
+    # get type hierarchy supertypes for Derived
+    r = json_rpc.request(ls.TypeHierarchy(
+        paths[0], 23, 9, 1, ls.TypeHierarchyDirection.Parents))
+    r = json_rpc.wait_for(r)
+    assert len(r['parents']) == 1
+    assert r['parents'][0]['name'] == 'Base'
+
+    # get type hierarchy subtypes for Base
+    r = json_rpc.request(ls.TypeHierarchy(
+        paths[0], 22, 9, 1, ls.TypeHierarchyDirection.Children))
+    r = json_rpc.wait_for(r)
+    assert len(r['children']) == 1
+    assert r['children'][0]['name'] == 'Derived'
+
 
 def main():
     for build in (1, 2):
