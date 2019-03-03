@@ -46,7 +46,7 @@ def main():
         if ret != 0:
             return ret
 
-    ls.run(interact, {
+    ls.run(interact, initialize_params={
         'rootUri': 'file://' + os.getcwd() + '/cpp-test/src',
     })
 
