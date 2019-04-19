@@ -21,3 +21,9 @@ int main()
 
 struct Base {};
 struct Derived : Base {};
+
+// Test clang-tidy integration.
+void clangTidyTest(int i) {
+  // Should trigger 'bugprone-integer-division'.
+  double d = 32 * 8 / (2 + i);
+}
