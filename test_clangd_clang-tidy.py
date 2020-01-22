@@ -24,7 +24,7 @@ def main():
     if ret != 0:
         return ret
 
-    ls.run(interact, cmdline_args="--clang-tidy=true --clang-tidy-checks='bugprone-*'", initialize_params={
+    ls.run(interact, cmdline_args="--clang-tidy=true --clang-tidy-checks='bugprone-*,modernize-*,hicpp-*'", initialize_params={
         'rootUri': 'file://' + os.getcwd() + '/cpp-test/src',
     })
 

@@ -26,4 +26,13 @@ struct Derived : Base {};
 void clangTidyTest(int i) {
   // Should trigger 'bugprone-integer-division'.
   double d = 32 * 8 / (2 + i);
+
+  // This one should not due to the NOLINT comment.
+  d = 32 * 8 / (2 + i);  // NOLINT
+}
+
+// https://github.com/theia-ide/theia/issues/5425
+char* theiaIssue5425() {
+  char* pc = 0;
+  return pc;
 }
